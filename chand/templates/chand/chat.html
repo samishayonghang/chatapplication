@@ -1,6 +1,6 @@
 {% extends "chand/base.html" %}
 
-{% block title %}{% endblock title %}
+{% block title %}Chat{% endblock %}
 
 {% block body %}
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -12,6 +12,7 @@
 
         <!-- Chat messages container -->
         <div class="card-body flex-grow-1 overflow-auto p-3" id="chat_ui" style="height: 100%;">
+            <!-- Messages will be dynamically added here -->
         </div>
 
         <!-- Message input box -->
@@ -24,11 +25,11 @@
     </div>
 
     <script>
-        var room_code="{{room_code}}"
+        var room_code = "{{ room_code }}";
         var url = "ws://" + window.location.host + "/ws/chat/" + room_code + "/";
         console.log(url);
 
-        var sender = '{{user}}';
+        var sender = '{{ user }}';
         var websocket = new WebSocket(url);
 
         websocket.onopen = function(e) {
@@ -49,7 +50,7 @@
 
         function updateUI(message, sender) {
             var chatUI = document.getElementById('chat_ui');
-            var messageClass = sender === '{{user}}' ? 'sent' : 'received';
+            var messageClass = sender === '{{ user }}' ? 'sent' : 'received';
 
             // Create a new div element for the message
             var messageElement = document.createElement('div');
@@ -79,7 +80,6 @@
             }
             else {
                 console.log('WebSocket is not open or message is empty');
-            
             }
         });
     </script>
@@ -99,6 +99,7 @@
             padding: 10px;
             border-radius: 15px;
             display: inline-block;
+            word-wrap: break-word;
         }
 
         .sent {
@@ -106,6 +107,7 @@
             background-color: #007bff;
             color: white;
             border-radius: 15px 15px 0 15px;
+            margin-bottom: 5px;
         }
 
         .received {
@@ -113,7 +115,17 @@
             background-color: #e4e6eb;
             color: black;
             border-radius: 15px 15px 15px 0;
+            margin-bottom: 5px;
+        }
+
+        /* Ensures text does not overflow the box */
+        .message p {
+            margin: 0;
+        }
+
+        .message small {
+            font-size: 0.8rem;
         }
     </style>
 
-{% endblock body %}
+{% endblock %}

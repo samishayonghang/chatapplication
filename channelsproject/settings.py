@@ -135,3 +135,4 @@ CHANNEL_LAYERS = {
     },
 }
 
+AUTH_USER_MODEL = 'chand.CustomUser'  # Replace 'yourapp' with your app name

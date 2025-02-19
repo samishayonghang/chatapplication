@@ -1,0 +1,100 @@
+{% extends "chand/base.html" %}
+
+{% block title %}LoginForm{% endblock %}
+
+{% block body %}
+
+<style>
+    /* Custom CSS to mimic Bootstrap styling */
+form input, form select, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+</style>
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-center mb-4">Login</h5>
+            <form action="{% url 'loginpage' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %} 
+              
+              <div class="mb-3">
+                <label for="exampleInputname" class="form-label visually-hidden">username</label>
+                <input type="text" class="form-control" name="username" id="exampleInputname" placeholder="Please enter your Username">
+              </div>
+              
+             <div class="mb-3">
+                <label for="exampleInputPassword" class="form-label visually-hidden">Password </label>
+                <input type="password" class="form-control" name="password" id="exampleInputPassword" placeholder="please enter your password">
+             </div>
+              
+              <button type="submit" class="btn btn-yellow w-100">Login</button>
+              {% if messages %}
+              <div class="text-danger mt-3">
+                  {% for message in messages %}
+                      <p>{{ message }}</p>
+                  {% endfor %}
+              </div>
+          {% endif %}
+             
+             <div class="text-center mt-3">
+               <small> Dont have an account? <a href="{% url "signuppage" %}" class="link"> Sign up</a> 
+                 <p> Or login with </p>
+               </small>
+              
+             
+              </div>
+             <div class="text-center mt-3">
+               <small> <a href="{% url "signuppage" %}" class="link">
+                 <i class="bi bi-google"></i> Google </a>
+               </small>
+               <small> <a href="{% url "signuppage" %}" class="link">
+                <i class="bi bi-facebook"></i>  Facebook  </a>
+               </small>
+             </div>
+             
+
+            
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+{% endblock body %}
+
+
+
